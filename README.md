@@ -1,5 +1,9 @@
 # WaterCupReminder
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Platform: macOS 12+](https://img.shields.io/badge/Platform-macOS%2012%2B-blue.svg)](#运行环境)
+[![Release](https://img.shields.io/github/v/release/harryniu1990/WaterCupReminder)](https://github.com/harryniu1990/WaterCupReminder/releases)
+
 一个基于 Swift + AppKit 的 macOS 菜单栏喝水提醒工具。
 
 它会在工作时间定时弹出一个可爱的喝水提醒窗口，并随着忽略时间逐渐变大，尽量把“该喝水了”这件事提醒到位。
@@ -56,13 +60,15 @@ dist/WaterCupReminder.app
 
 ```text
 .
+├── LICENSE
 ├── Package.swift
 ├── README.md
 ├── Sources/
 │   └── WaterCupReminder/
 │       └── main.swift
 └── scripts/
-    └── build-app.sh
+    ├── build-app.sh
+    └── make-installer.sh
 ```
 
 ## 构建脚本说明
@@ -74,7 +80,23 @@ dist/WaterCupReminder.app
 - 写入应用需要的 `Info.plist`
 - 将最终产物输出到 `dist/`
 
+`scripts/make-installer.sh` 用于正式发版，额外做这些事：
+
+- 同时编译 `arm64` 与 `x86_64`，用 `lipo` 合并成 Universal Binary
+- 做 ad-hoc 签名，保证在其他 Mac 上可以正常启动
+- 产出可分发的 `WaterCupReminder-<版本>.dmg` 与 `.zip`
+
 ## 说明
 
 - 仓库默认忽略 `.build/`、`dist/`、`.home/` 等本地构建产物和缓存目录。
 - 当前版本更适合个人本地使用，尚未包含自动开机启动、偏好设置或自定义提醒频率等功能。
+
+## 许可证
+
+本项目基于 [MIT License](./LICENSE) 开源。
+
+你可以自由地使用、复制、修改、合并、发布、分发、再许可和/或销售本软件的副本，唯一的要求是在所有副本或实质性部分中保留上述版权声明和许可声明。本软件按「原样」提供，不附带任何形式的担保。
+
+```text
+Copyright (c) 2026 harryniu1990
+```
